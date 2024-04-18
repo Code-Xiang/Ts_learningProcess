@@ -24,7 +24,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: 'dashboard' } },
-      { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
+      { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) }
       // 业务子模块
       // { path: 'widgets', loadChildren: () => import('./widgets/widgets.module').then(m => m.WidgetsModule) },
     ]
@@ -44,25 +44,24 @@ const routes: Routes = [
       { path: 'login', component: UserLoginComponent, data: { title: '登录', titleI18n: 'pro-login' } },
       { path: 'register', component: UserRegisterComponent, data: { title: '注册', titleI18n: 'pro-register' } },
       { path: 'register-result', component: UserRegisterResultComponent, data: { title: '注册结果', titleI18n: 'pro-register-result' } },
-      { path: 'lock', component: UserLockComponent, data: { title: '锁屏', titleI18n: 'lock' } },
+      { path: 'lock', component: UserLockComponent, data: { title: '锁屏', titleI18n: 'lock' } }
     ]
   },
   // 单页不包裹Layout
   { path: 'passport/callback/:type', component: CallbackComponent },
-  { path: '**', redirectTo: 'exception/404' },
+  { path: '**', redirectTo: 'exception/404' }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(
-      routes, {
-        useHash: environment.useHash,
-        // NOTICE: If you use `reuse-tab` component and turn on keepingScroll you can set to `disabled`
-        // Pls refer to https://ng-alain.com/components/reuse-tab
-        scrollPositionRestoration: 'top',
-        bindToComponentInputs: true
-      }
-    )],
-  exports: [RouterModule],
+    RouterModule.forRoot(routes, {
+      useHash: environment.useHash,
+      // NOTICE: If you use `reuse-tab` component and turn on keepingScroll you can set to `disabled`
+      // Pls refer to https://ng-alain.com/components/reuse-tab
+      scrollPositionRestoration: 'top',
+      bindToComponentInputs: true
+    })
+  ],
+  exports: [RouterModule]
 })
-export class RouteRoutingModule { }
+export class RouteRoutingModule {}
