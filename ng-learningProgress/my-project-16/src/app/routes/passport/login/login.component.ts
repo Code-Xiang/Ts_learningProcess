@@ -150,7 +150,7 @@ export class UserLoginComponent implements OnDestroy {
     if (environment.production) {
       callback = `https://ng-alain.github.io/ng-alain/#/passport/callback/${type}`;
     } else {
-      callback = `http://localhost:4201/#/passport/callback/${type}`;
+      callback = `http://localhost:4200/#/passport/callback/${type}`;
     }
     switch (type) {
       case 'auth0':

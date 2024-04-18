@@ -3,9 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { startPageGuard } from '@core';
 import { authSimpleCanActivate } from '@delon/auth';
 import { environment } from '@env/environment';
+
 // layout
-import { LayoutBasicComponent } from '../layout/basic/basic.component';
-import { LayoutPassportComponent } from '../layout/passport/passport.component';
 // dashboard pages
 import { DashboardComponent } from './dashboard/dashboard.component';
 // single pages
@@ -13,8 +12,10 @@ import { CallbackComponent } from './passport/callback.component';
 import { UserLockComponent } from './passport/lock/lock.component';
 // passport pages
 import { UserLoginComponent } from './passport/login/login.component';
-import { UserRegisterResultComponent } from './passport/register-result/register-result.component';
 import { UserRegisterComponent } from './passport/register/register.component';
+import { UserRegisterResultComponent } from './passport/register-result/register-result.component';
+import { LayoutBasicComponent } from '../layout/basic/basic.component';
+import { LayoutPassportComponent } from '../layout/passport/passport.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) }
       // 业务子模块
       // { path: 'widgets', loadChildren: () => import('./widgets/widgets.module').then(m => m.WidgetsModule) },
+      // { path: 'formData', loadChildren: () => import('./formData/formData.module').then(m => m.FormDataModule) }
     ]
   },
   // 空白布局

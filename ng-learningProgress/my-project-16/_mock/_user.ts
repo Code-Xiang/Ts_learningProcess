@@ -45,11 +45,66 @@ function saveData(id: number, value: any): { msg: string } {
   Object.assign(item, value);
   return { msg: 'ok' };
 }
+// 定义固定数据
+const fixedData = [
+  {
+    id: 1,
+    picture: { thumbnail: 'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png' },
+    email: 'user@example.com',
+    phone: '123-456-7890',
+    registered: new Date('2021-01-01').toISOString()
+  },
+  {
+    id: 2,
+    picture: { thumbnail: 'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png' },
+    email: 'another@example.com',
+    phone: '098-765-4321',
+    registered: new Date('2021-02-01').toISOString()
+  }
+];
+function addUser(req: MockRequest): { message: string; user?: any } {
+  const userData = req.body; // 从请求体中获取用户数据
+  if (!userData.email || !userData.phone) {
+    // 确保必要的数据存在
+    return { message: 'Email and phone are required.' };
+  }
 
+  // 生成新的 ID
+  const newId = fixedData.length > 0 ? Math.max(...fixedData.map(user => user.id)) + 1 : 1;
+  const newUser = {
+    id: newId,
+    picture: { thumbnail: userData.picture || 'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png' },
+    email: userData.email,
+    phone: userData.phone,
+    registered: new Date().toISOString() // 使用当前日期作为注册日期
+  };
+
+  fixedData.push(newUser); // 将新用户添加到数组中
+  return {
+    message: 'User added successfully.',
+    user: newUser
+  };
+}
 export const USERS = {
   '/user': (req: MockRequest) => genData(req.queryString),
   '/user/:id': (req: MockRequest) => list.find(w => w.id === +req.params.id),
   'POST /user/:id': (req: MockRequest) => saveData(+req.params.id, req.body),
+  'POST /users': (req: MockRequest) => addUser(req),
+  '/users': (req: MockRequest) => {
+    // 如果有搜索参数 "name", 过滤数据
+    if (req.queryString.name) {
+      return {
+        total: fixedData.filter(item => item.email.includes(req.queryString.name)).length,
+        list: fixedData.filter(item => item.email.includes(req.queryString.name)),
+        message: 'ok'
+      };
+    }
+    return {
+      total: fixedData.length,
+      list: fixedData,
+      message: 'ok'
+    };
+  },
   '/user/current': {
     name: 'Cipchk',
     avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',

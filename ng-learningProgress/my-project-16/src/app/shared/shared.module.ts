@@ -1,13 +1,15 @@
-import { NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule, Type, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AlainThemeModule } from '@delon/theme';
 import { DelonACLModule } from '@delon/acl';
 import { DelonFormModule } from '@delon/form';
+import { AlainThemeModule } from '@delon/theme';
 
 import { SHARED_DELON_MODULES } from './shared-delon.module';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
+
+// import { DatePipe, I18nPipe } from '@delon/theme';
 
 // #region third libs
 
@@ -56,6 +58,7 @@ const DIRECTIVES: Array<Type<void>> = [];
     // your components
     ...COMPONENTS,
     ...DIRECTIVES
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule {}
