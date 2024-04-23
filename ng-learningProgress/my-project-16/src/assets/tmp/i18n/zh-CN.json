@@ -5,7 +5,8 @@
       "v1": "默认页",
       "analysis": "分析页",
       "monitor": "监控页",
-      "workplace": "工作台"
+      "workplace": "工作台",
+      "form": "表单页"
     }
   },
   "menu.search.placeholder": "搜索：员工、文件、照片等，按 F1 可触发",

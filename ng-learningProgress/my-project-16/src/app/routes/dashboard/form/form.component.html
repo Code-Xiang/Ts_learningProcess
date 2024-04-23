@@ -1,0 +1,79 @@
+<page-header [title]="'分步表单'"> 将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。 </page-header>
+<nz-card [nzBordered]="false">
+  <nz-steps [nzCurrent]="item.step">
+    <nz-step nzTitle="填写转账信息" />
+    <nz-step nzTitle="确认转账信息" />
+    <nz-step nzTitle="完成" />
+  </nz-steps>
+  <app-step1 *ngIf="item.step === 0" />
+  <app-step2 *ngIf="item.step === 1" />
+  <app-step3 *ngIf="item.step === 2" />
+</nz-card>
+<form nz-form [formGroup]="form" (ngSubmit)="_submitForm()" [nzLayout]="'vertical'">
+  <!-- nz-form 是NgZorro库提供的一个指令，用于应用NgZorro的表单样式和行为 -->
+  <!-- [nzLayout] 是NgZorro中针对表单布局的属性。它支持两种布局模式：'horizontal'（水平布局）和'vertical'（垂直布局）。这里使用'vertical'，意味着表单控件和标签将垂直排列。 -->
+  <nz-card [nzBordered]="false" nzTitle="仓库管理">
+    <!-- 这里使用的是属性绑定的语法（[ ]括号表示这是一个绑定表达式），并将其设置为false。这意味着这个nz-card组件将不显示边框。如果不设置这个属性，默认情况下卡片是有边框的 -->
+    <nz-row nzGutter="24">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label nzFor="name">仓库名</nz-form-label>
+          <nz-form-control nzErrorTip="请输入仓库名称">
+            <input nz-input formControlName="name" id="name" placeholder="请输入仓库名称" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col [nzXl]="{ span: 6, offset: 2 }" [nzLg]="{ span: 8 }" [nzMd]="{ span: 12 }" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>仓库域名</nz-form-label>
+          <nz-form-control nzErrorTip="请输入仓库域名">
+            <nz-input-group nzAddOnBefore="http://" nzAddOnAfter=".com">
+              <input nz-input formControlName="url" placeholder="请输入" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col [nzXl]="{ span: 8, offset: 2 }" [nzLg]="{ span: 10 }" [nzMd]="{ span: 24 }" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>仓库管理员</nz-form-label>
+          <nz-form-control nzErrorTip="请选择管理员">
+            <nz-select formControlName="owner" [nzPlaceHolder]="'请选择管理员'" [nzShowSearch]="true">
+              <nz-option *ngFor="let i of users" [nzLabel]="i.label" [nzValue]="i.value" />
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row nzGutter="16">
+      <nz-col nzLg="6" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>审批员</nz-form-label>
+          <nz-form-control nzErrorTip="请选择审批员">
+            <nz-select formControlName="approver" [nzPlaceHolder]="'请选择管理员'" [nzShowSearch]="true">
+              <nz-option *ngFor="let i of users" [nzLabel]="i.label" [nzValue]="i.value" />
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col [nzXl]="{ span: 6, offset: 2 }" [nzLg]="{ span: 8 }" [nzMd]="{ span: 12 }" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>生效日期</nz-form-label>
+          <nz-form-control>
+            <nz-range-picker formControlName="date_range" [style]="{ width: '100%' }" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col [nzXl]="{ span: 8, offset: 2 }" [nzLg]="{ span: 10 }" [nzMd]="{ span: 24 }" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>仓库类型</nz-form-label>
+          <nz-form-control nzErrorTip="请选择仓库类型">
+            <nz-select formControlName="type" [nzShowSearch]="true" [nzPlaceHolder]="'请选择仓库类型'">
+              <nz-option [nzLabel]="'私密'" [nzValue]="'private'" />
+              <nz-option [nzLabel]="'公开'" [nzValue]="'public'" />
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </nz-card>
+</form>

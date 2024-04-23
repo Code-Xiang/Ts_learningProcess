@@ -17,12 +17,19 @@ import { G2TimelineModule } from '@delon/chart/timeline';
 import { TrendModule } from '@delon/chart/trend';
 import { G2WaterWaveModule } from '@delon/chart/water-wave';
 import { SharedModule } from '@shared';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { CountdownModule } from 'ngx-countdown';
 
 import { AnalysisComponent } from './analysis/analysis.component';
 import { DashboardRoutingModule } from './dashboard-routes';
+import { FormComponent } from './form/form.component';
+import { Step1Component } from './form/step1.component';
+import { Step2Component } from './form/step2.component';
+import { Step3Component } from './form/step3.component';
 
-const COMPONENTS = [AnalysisComponent];
+const COMPONENTS = [AnalysisComponent, FormComponent, Step1Component, Step2Component, Step3Component];
 @NgModule({
   imports: [
     SharedModule,
@@ -44,7 +51,10 @@ const COMPONENTS = [AnalysisComponent];
     G2TimelineModule,
     TrendModule,
     G2WaterWaveModule,
-    CountdownModule
+    CountdownModule,
+    NzCarouselModule,
+    NzPaginationModule,
+    NzStepsModule
   ],
   declarations: [...COMPONENTS]
 })

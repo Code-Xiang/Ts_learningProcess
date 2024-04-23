@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Inject, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Inject, OnInit, TrackByFunction } from '@angular/core';
 import { I18NService } from '@core';
 import { ALAIN_I18N_TOKEN, _HttpClient } from '@delon/theme';
 import { getTimeDistance } from '@delon/util/date-time';
@@ -12,6 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./analysis.component.less']
 })
 export class AnalysisComponent {
+  trackByIndex: TrackByFunction<number> | undefined;
   constructor(
     public msg: NzMessageService,
     private http: _HttpClient,
@@ -27,7 +28,8 @@ export class AnalysisComponent {
   dateRangeTypes = ['today', 'week', 'month', 'year'];
   dateRangeType = this.dateRangeTypes[0];
   dateRange: Date[] = [];
-
+  array = [1, 2, 3, 4];
+  effect = 'scrollx';
   rankingListData: Array<{ title: string; total: number }> = Array(7)
     .fill({}) // 使用一个空对象 {} 填充整个数组。这是为了确保数组中的每个位置都已初始化
     .map((_, i) => {

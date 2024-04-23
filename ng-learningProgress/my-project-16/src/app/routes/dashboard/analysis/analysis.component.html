@@ -120,3 +120,13 @@ nzGutter 可以接收一个数字或一个对象，数字代表间隙大小，�
     </ng-template>
   </nz-tabset>
 </nz-card>
+<div nz-row [nzGutter]="24" class="pt-lg">
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <!-- 使用*ngFor来进行循环 -->
+    <nz-carousel [nzEffect]="effect">
+      <div nz-carousel-content *ngFor="let index of array">
+        <h3>{{ index }}</h3>
+      </div>
+    </nz-carousel>
+  </div>
+</div>

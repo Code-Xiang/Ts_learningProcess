@@ -39,6 +39,11 @@
               "text": "工作台",
               "link": "/dashboard/workplace",
               "i18n": "menu.dashboard.workplace"
+            },
+            {
+              "text": "表单页",
+              "link": "/dashboard/form",
+              "i18n": "menu.dashboard.form"
             }
           ]
         },
