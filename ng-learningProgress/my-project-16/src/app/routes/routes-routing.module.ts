@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 
 // layout
 // dashboard pages
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 // single pages
 import { CallbackComponent } from './passport/callback.component';
 import { UserLockComponent } from './passport/lock/lock.component';
@@ -24,6 +24,11 @@ const routes: Routes = [
     canActivate: [startPageGuard, authSimpleCanActivate],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'dashboard', // 定义'dashboard'子路由
+        loadChildren: () => import('./dashboard/dashboard.modules').then(m => m.DashboardModule), // 使用懒加载加载dashboard模块
+        data: { preload: true }
+      },
       { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: 'dashboard' } },
       { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) }
       // 业务子模块

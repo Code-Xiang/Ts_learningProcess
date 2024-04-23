@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Alain",
+    "name": "Xxw",
     "description": "Ng-zorro admin panel front-end framework"
   },
   "user": {
@@ -22,7 +22,7 @@
           "children": [
             {
               "text": "仪表盘V1",
-              "link": "/dashboard/v1",
+              "link": "/dashboard/dashboard",
               "i18n": "menu.dashboard.v1"
             },
             {

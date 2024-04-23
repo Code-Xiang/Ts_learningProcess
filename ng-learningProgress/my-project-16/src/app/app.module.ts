@@ -11,9 +11,10 @@ import { Observable } from 'rxjs';
 // #region default language
 // Reference: https://ng-alain.com/docs/i18n
 import { default as ngLang } from '@angular/common/locales/zh';
-import { DELON_LOCALE, zh_CN as delonLang } from '@delon/theme';
+import { DELON_LOCALE, zh_CN as delonLang, ALAIN_I18N_TOKEN } from '@delon/theme';
 import { zhCN as dateLang } from 'date-fns/locale';
 import { NZ_DATE_LOCALE, provideNzI18n, zh_CN as zorroLang } from 'ng-zorro-antd/i18n';
+import { I18NService } from '@core';
 const LANG = {
   abbr: 'zh',
   ng: ngLang,
@@ -31,6 +32,8 @@ const LANG_PROVIDES = [
   { provide: DELON_LOCALE, useValue: LANG.delon }
 ];
 // #endregion
+
+const I18NSERVICE_PROVIDES = [{ provide: ALAIN_I18N_TOKEN, useClass: I18NService, multi: false }];
 
 // #region JSON Schema form (using @delon/form)
 import { JsonSchemaModule } from '@shared';
@@ -92,7 +95,7 @@ import { STWidgetModule } from './shared/st-widget/st-widget.module';
     ...FORM_MODULES,
     ...GLOBAL_THIRD_MODULES
   ],
-  providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...APPINIT_PROVIDES],
+  providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...APPINIT_PROVIDES, ...I18NSERVICE_PROVIDES],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,0 +1,122 @@
+<div nz-row [nzGutter]="24" class="pt-lg">
+  <!-- nz-row 是 NG-ZORRO 的一个布局组件，用于创建网格系统中的行。它与 nz-col 组件结合使用，可以很方便地管理水平布局 -->
+  <!-- [nzGutter]="24" 属性用于设置行内所有列之间的间隙。这里的 24 表示每个列间隙为 24 像素。使用 Angular 的属性绑定（由方括号 [] 表示），允许将表达式或组件属性的值动态分配给 nzGutter。
+nzGutter 可以接收一个数字或一个对象，数字代表间隙大小，对象则可以分别指定响应式设计下的间隙大小。 -->
+  <!-- class="pt-lg" 是一个普通的 CSS 类，用于给这一行添加样式。具体的类样式需要在相应的 CSS 文件中定义。
+根据命名约定（pt-lg 通常意味着 "padding top large"），这个类可能是设置较大的上边距。实际的数值（如多少像素或百分比）应定义在样式表中。 -->
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <!-- nzXs="24": 在超小屏幕（小于576px，例如手机）上，这个元素将占用全部24列，也就是100%的宽度。 -->
+    <!-- nzSm="12": 在小屏幕（>=576px，例如小平板或大手机）上，元素占用12列，即50%的宽度。 -->
+    <!-- nzMd="12": 在中等屏幕（>=768px，例如中型平板）上，元素同样占用12列，即50%的宽度 -->
+    <!-- nzLg="6": 在大屏幕（>=992px，例如桌面显示器）上，元素占用6列，即25%的宽度 -->
+    <g2-card [title]="'app.analysis.total-sales' | i18n" total="¥ 126,560" contentHeight="44px" [action]="action1" [footer]="footer1">
+      <!-- [action]="action1": 指定卡片的操作区域，链接到页面上定义的 action1 模板 -->
+      <ng-template #action1>
+        <i nz-tooltip [nzTooltipTitle]="'app.analysis.introduce' | i18n" nz-icon nzType="info-circle"></i>
+      </ng-template>
+      <trend flag="up" style="display: block; margin-top: 2px">
+        {{ 'app.analysis.week' | i18n }}
+        <span class="pl-sm">12%</span>
+      </trend>
+      <trend flag="down">
+        {{ 'app.analysis.day' | i18n }}
+        <span class="pl-sm">11%</span>
+      </trend>
+      <ng-template #footer1>
+        <p class="text-truncate mb0">
+          {{ 'app.analysis.day-sales' | i18n }}
+          <span class="ml-sm">￥12,423</span>
+        </p>
+      </ng-template>
+    </g2-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <g2-card [title]="'app.analysis.visits' | i18n" total="8,848" contentHeight="46px" [action]="action2" [footer]="footer2">
+      <ng-template #action2>
+        <i nz-tooltip [nzTooltipTitle]="'app.analysis.introduce' | i18n" nz-icon nzType="info-circle"></i>
+      </ng-template>
+      <g2-mini-area *ngIf="data.visitData" color="#975FE4" height="46" [data]="data.visitData" />
+      <ng-template #footer2>
+        <p class="text-truncate mb0">
+          {{ 'app.analysis.day-visits' | i18n }}
+          <span class="ml-sm">1,234</span>
+        </p>
+      </ng-template>
+    </g2-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <g2-card [title]="'app.analysis.payments' | i18n" total="6,560" contentHeight="46px" [action]="action3" [footer]="footer3">
+      <ng-template #action3>
+        <i nz-tooltip [nzTooltipTitle]="'app.analysis.introduce' | i18n" nz-icon nzType="info-circle"></i>
+      </ng-template>
+      <g2-mini-bar *ngIf="data.visitData" height="46" [data]="data.visitData" />
+      <ng-template #footer3>
+        <p class="text-truncate mb0">
+          {{ 'app.analysis.conversion-rate' | i18n }}
+          <span class="ml-sm">60%</span>
+        </p>
+      </ng-template>
+    </g2-card>
+  </div>
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <g2-card [title]="'app.analysis.operational-effect' | i18n" total="78%" contentHeight="46px" [action]="action4" [footer]="footer4">
+      <ng-template #action4>
+        <i nz-tooltip [nzTooltipTitle]="'app.analysis.introduce' | i18n" nz-icon nzType="info-circle"></i>
+      </ng-template>
+      <g2-mini-progress height="46" percent="78" strokeWidth="8" target="80" color="#13C2C2" />
+      <ng-template #footer4>
+        <div class="d-flex justify-content-between text-truncate">
+          <trend flag="up">
+            {{ 'app.analysis.week' | i18n }}
+            <span class="pl-sm">12%</span>
+          </trend>
+          <trend flag="down">
+            {{ 'app.analysis.day' | i18n }}
+            <span class="pl-sm">11%</span>
+          </trend>
+        </div>
+      </ng-template>
+    </g2-card>
+  </div>
+</div>
+<nz-card [nzLoading]="loading" [nzBordered]="false" class="ant-card__body-nopadding sales-card">
+  <nz-tabset [nzTabBarExtraContent]="extraTemplate" *ngIf="data.salesData" (nzSelectedIndexChange)="salesChange($event)">
+    <nz-tab *ngFor="let tab of saleTabs" [nzTitle]="'app.analysis.' + tab.key | i18n">
+      <div nz-row>
+        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="16">
+          <div class="bar">
+            <g2-bar
+              *ngIf="tab.show"
+              height="295"
+              style="width: 100%"
+              [title]="'app.analysis.' + tab.key + '-trend' | i18n"
+              [data]="data.salesData"
+            />
+          </div>
+        </div>
+        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8">
+          <div class="rank">
+            <h4 class="ranking-title">{{ 'app.analysis.' + tab.key + '-ranking' | i18n }}</h4>
+            <ul class="rank-list">
+              <li *ngFor="let i of rankingListData; let idx = index">
+                <span class="number" [ngClass]="{ active: idx < 3 }">{{ idx + 1 }}</span>
+                <span class="title">{{ i.title }}</span>
+                <span class="value">{{ i.total | number: '3.0' }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nz-tab>
+    <ng-template #extraTemplate>
+      <div class="sales-extra-wrap">
+        <div class="sales-extra">
+          <span *ngFor="let t of dateRangeTypes" (click)="setDate(t)" [class.current-date]="dateRangeType === t">
+            {{ 'app.analysis.all-' + t | i18n }}
+          </span>
+        </div>
+        <nz-range-picker [(ngModel)]="dateRange" />
+      </div>
+    </ng-template>
+  </nz-tabset>
+</nz-card>
