@@ -10,6 +10,7 @@ namespace Test_a {
   export let b = 1;
 }
 console.log(Test_a.b);
+// 应用场景
 // 跨端的项目 h5 Android IOS 小程序
 namespace ios {
   export const pushNotification = (msg: string, type: number) => {};
